@@ -2,16 +2,15 @@
 
 const User    = require("../lib/user-helper")
 const express = require('express');
-const tweets  = express.Router();
+const tweets  = express.Router(); //  per express docs, Router() can be thought of as a mini application for managing routes
 
 module.exports = function(db) {
 
-  tweets.get("/", function(req, res) {
-    let tweets = db.getTweets();
-    // simulate delay
-    setTimeout(() => {
-      return res.json(tweets);
-    }, 300);
+tweets.get("/", function(req, res) {
+
+    db.getTweets((value) => {
+      return res.json(value);
+    });
   });
 
   tweets.post("/", function(req, res) {
